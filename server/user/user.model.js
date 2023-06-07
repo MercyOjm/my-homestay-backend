@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
   last_name: {
     type: String
   },
-  DOB: {
+  dob: {
     type: Date
   },
   gender: {
@@ -40,7 +40,7 @@ const UserSchema = new mongoose.Schema({
   response_time: {
     type: String
   },
-  picture_id: {
+  image_id: {
     type: String
   },
   neighbourhood: {
