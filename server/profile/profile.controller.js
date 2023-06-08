@@ -1,63 +1,64 @@
-const userService = require("../user/user.service");
-const addressService = require("../address/address.service");
-const imageService = require("../images/image.service");
+const Address = require("../address/address.model");
+const Image = require("../images/images.model");
+const User = require("../user/user.model");
 
-function getProfile(req, res, next) {
-  let profile;
-  userService
-    .get(req.params.userid)
-    .then((user) => {
-      profile = user;
-      return addressService.get(profile.address_id);
-    })
+function getProfile(req, res) {
+  let profile = {};
+  User.get(req.params.userid).then((user) => {
+    return res.json(user);
+  });
+}
+
+function updateProfile(req, res, next) {
+  let savedUser = User.get(req.params.userid);
+
+  Address.update(req.body.address, req.body.address._id)
     .then((address) => {
-      profile.address = address;
-      return imageService.get(profile.image_id);
+      savedUser.address = address;
+
+      savedUser = {
+        ...savedUser,
+        dob: req.body.dob,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        gender: req.body.gender,
+        hobbies: req.body.hobbies,
+        interest: req.body.interest,
+        about: req.body.about,
+      };
+      return User.update(savedUser, savedUser._id);
     })
-    .then((image) => {
-      profile.image = image;
-      res.json(profile); // eslint-disable-line no-param-reassign
-      return next();
+    .then((user) => {
+      savedUser = {
+        ...savedUser,
+        ...user,
+      };
+      return res.json(savedUser);
     })
     .catch((e) => next(e));
 }
 
-function updateProfile(req, res, next, id) {
-  User.get(id).then((user) => {
-    user.dob = req.body.dob;
-    user.first_name = req.body.first_name;
-    user.last_name = req.body.last_name;
-    user.gender = req.body.gender;
-    user.hobbies = req.body.hobbies;
-    user.interest = req.body.interest;
-    user.about = req.body.about;
-    user
+function uploadProfileImage(req, res, next) {
+  if (req.files) {
+    let profilePic = req.files.profileImage.data;
+
+    const base64Data = profilePic.toString("base64");
+    let imageSaved = {};
+    return new Image({
+      picture_url: base64Data,
+    })
       .save()
-      .then((savedUser) => res.json(savedUser))
+      .then((img) => {
+        imageSaved = img;
+        return User.get(req.params.userid);
+      })
+      .then((user) => {
+        user.image = imageSaved;
+        return user.save();
+      })
+      .then((user) => res.json(user))
       .catch((e) => next(e));
-  });
+  }
 }
 
-// first_name: {
-//   type: String
-// },
-// last_name: {
-//   type: String
-// },
-// DOB: {
-//   type: Date
-// },
-// gender: {
-//   type: String
-// },
-// hobbies: {
-//   type: String
-// },
-// interest: {
-//   type: String
-// },
-// about: {
-//   type: String
-// },
-
-module.exports = { getProfile, updateProfile };
+module.exports = { getProfile, updateProfile, uploadProfileImage };

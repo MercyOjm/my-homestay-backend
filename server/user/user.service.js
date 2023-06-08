@@ -4,8 +4,8 @@ const User = require("./user.model");
  * Get user
  * @returns {User}
  */
-async function get(id) {
-  return await User.get(id);
+ function get(id) {
+  return  User.get(id);
 }
 
 /**
@@ -15,12 +15,12 @@ async function get(id) {
  * @returns {User}
  */
 async function create(user) {
-  const user = new User({
+  const newUser = new User({
     email: user.email,
     password: user.password,
   });
 
-  return await user.save();
+  return await newUser.save();
 }
 
 /**
@@ -29,19 +29,20 @@ async function create(user) {
  * @property {string} req.body.mobileNumber - The mobileNumber of user.
  * @returns {User}
  */
-async function update(user) {
-  return await User.get(id)
+ function update(updateUser) {
+console.log(updateUser)
+  return User.get(updateUser.id)
     .then((user) => {
-      user.dob = req.body.dob;
-      user.first_name = req.body.first_name;
-      user.last_name = req.body.last_name;
-      user.gender = req.body.gender;
-      user.hobbies = req.body.hobbies;
-      user.interest = req.body.interest;
-      user.about = req.body.about;
-      return user;
-    })
-    .save();
+      user.dob = updateUser.dob;
+      user.first_name = updateUser.first_name;
+      user.last_name = updateUser.last_name;
+      user.gender = updateUser.gender;
+      user.hobbies = updateUser.hobbies;
+      user.interest = updateUser.interest;
+      user.about = updateUser.about;
+      user.address = updateUser.address_id;
+      return user.save();
+    });
 }
 
 /**
