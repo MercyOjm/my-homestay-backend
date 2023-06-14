@@ -60,7 +60,6 @@ const signup = async (req, res, next) => {
 const signin = async (req, res, next) => {
   console.log('signin controller')
   try {
-    const access_token = req.headers('access_token');
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
