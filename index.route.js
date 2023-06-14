@@ -12,7 +12,7 @@ router.get('/health-check', (req, res) =>
 );
 
 // mount user routes at /users
-router.use('/users', userRoutes);
+router.use('/', userRoutes);
 router.use('/profiles', profileRoutes);
 
 

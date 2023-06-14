@@ -1,4 +1,4 @@
-import Booking from '../../models/booking.model.js'
+const Booking =require( '../../models/booking.model.js');
 
 /* ----------------------------- Create Booking ----------------------------- */
 

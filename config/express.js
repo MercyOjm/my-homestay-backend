@@ -13,6 +13,7 @@ const routes = require('../index.route');
 const config = require('./config');
 const APIError = require('../server/helpers/APIError');
 const fileUpload = require('express-fileupload');
+const cors = require('cors');
 
 const app = express();
 
@@ -25,6 +26,13 @@ app.use(cookieParser());
 app.use(compress());
 app.use(methodOverride());
 app.use(fileUpload())
+app.use(cors({
+  origin:"http://localhost:5173",
+  optionsSuccessStatus:200,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"]
+})
+);
 
 // enable detailed API logging in dev env
 if (config.env === 'development') {
