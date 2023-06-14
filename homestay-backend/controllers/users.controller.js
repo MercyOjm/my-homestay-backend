@@ -4,7 +4,7 @@ import {createToken} from '../util/jwt.js'
 
 let cookieOptions = {
     
-    secure: false,
+    secure:true,
     httpOnly: true,
     sameSite: 'none',
     maxAge: 3_600_000 * 24

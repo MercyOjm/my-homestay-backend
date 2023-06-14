@@ -13,14 +13,14 @@ connectDB()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
-// app.use(cors({
-//     origin:"*",
-//     optionsSuccessStatus:200,
-//     credentials: true,
-//     methods: ["GET", "POST", "PUT", "DELETE"]
-// })
-// );
-app.use(cors())
+app.use(cors({
+    origin:"http://localhost:5173",
+    optionsSuccessStatus:200,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"]
+})
+);
+// app.use(cors())
 
 app.use("/users", userRouter)
 
