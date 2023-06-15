@@ -1,5 +1,6 @@
 {
   "name": "express-mongoose-es6-rest-api",
+  "type":"module",
   "version": "5.0.0",
   "description": "A Boilerplate application for building REST APIs using express, mongoose in ES6 with code coverage",
   "author": "Kunal Kapadia <kunalkapadia12@gmail.com>",
@@ -11,7 +12,7 @@
     "yarn": ">=1.5.1"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "start:debug": "cross-env DEBUG=express-mongoose-es6-rest-api:* yarn start",
     "lint": "eslint --fix --ext .js,.jsx .",
     "lint:watch": "yarn lint -- --watch",
