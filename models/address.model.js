@@ -1,7 +1,7 @@
-const Promise = require("bluebird");
-const mongoose = require("mongoose");
-const httpStatus = require("http-status");
-const APIError = require("../helpers/APIError");
+import Promise from "bluebird";
+import mongoose from "mongoose";
+import httpStatus from "http-status";
+import APIError from "../helpers/APIError.js";
 
 const AddressSchema = new mongoose.Schema({
   street: {
@@ -89,4 +89,4 @@ AddressSchema.statics = {
   },
 };
 
-module.exports = mongoose.model("Address", AddressSchema);
+export default mongoose.model("Address", AddressSchema);

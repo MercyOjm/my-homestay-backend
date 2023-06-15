@@ -1,7 +1,8 @@
-const Promise = require('bluebird');
-const mongoose = require('mongoose');
-const httpStatus = require('http-status');
-const APIError = require('../helpers/APIError');
+import Promise from 'bluebird';
+import mongoose from 'mongoose';
+import httpStatus from 'http-status';
+import APIError from'../helpers/APIError.js';
+import bcrypt from 'bcrypt';
 
 /**
  * User Schema
@@ -138,7 +139,22 @@ const UserSchema = new mongoose.Schema({
  * Methods
  */
 UserSchema.method({
+  async authenticate(plainTextPass){
+    return await bcrypt.compare(plainTextPass, this.password)
+  }
 });
+
+UserSchema.pre('save', async function(next){
+  try {
+      if(!this.isModified('password')) return next();
+
+      const salt = await bcrypt.genSalt(10);
+      this.password = await bcrypt.hash(this.password, salt)
+      next()
+  } catch (error) {
+      next(error)
+  }
+})
 
 /**
  * Statics
@@ -190,10 +206,11 @@ UserSchema.statics = {
         );
         return Promise.reject(err);
       });
-  },
+  }
+
 };
 
 /**
  * @typedef User
  */
-module.exports = mongoose.model('User', UserSchema);
+export default  mongoose.model('User', UserSchema);

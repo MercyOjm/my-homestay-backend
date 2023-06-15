@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 
-const profileController = require('../profile/profile.controller');
+import profileController from '../controllers/profile.controller.js';
 
 const router = express.Router(); // eslint-disable-line new-cap
 
@@ -11,4 +11,5 @@ router.route('/:userid')
 
 router.route('/:userid/upload')
 .post(profileController.uploadProfileImage)
-module.exports = router;
+
+export default router;

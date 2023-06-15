@@ -1,6 +1,6 @@
-const Address = require("../address/address.model");
-const Image = require("../images/images.model");
-const User = require("../user/user.model");
+import Address from"../models/address.model.js";
+import Image from"../models/images.model.js";
+import User from"../models/user.model.js";
 
 function getProfile(req, res) {
   let profile = {};
@@ -61,4 +61,4 @@ function uploadProfileImage(req, res, next) {
   }
 }
 
-module.exports = { getProfile, updateProfile, uploadProfileImage };
+export default  { getProfile, updateProfile, uploadProfileImage };
