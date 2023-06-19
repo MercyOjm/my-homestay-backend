@@ -1,74 +1,127 @@
 import mongoose from 'mongoose';
+const {Schema} = mongoose;
 
-const propertySchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  location: {
-    address: {
-      type: String,
-      required: true
+const propertySchema = new Schema({
+  listing_url: {
+      type: String
     },
-    city: {
-      type: String,
-      required: true
+    name: {
+      type: String
     },
-    state: {
-      type: String,
-      required: true
+    summary: {
+      type: String
     },
-    country: {
-      type: String,
-      required: true
+    interaction: {
+      type: String
     },
-    postalCode: {
-      type: String,
-      required: true
+    house_rules: {
+      type: String
+    },
+    property_type: {
+      type: String
+    },
+    room_type: {
+      type: String
+    },
+    minimum_nights: {
+      type: Number
+    },
+    maximum_nights: {
+      type: Number
+    },
+    cancellation_policy: {
+      type: String
+    },
+    accommodates: {
+      type: Number
+    },
+    bedrooms: {
+      type: Number
+    },
+    beds: {
+      type: [
+        Schema.Types.Mixed
+      ]
+    },
+    number_of_reviews: {
+      type: Number
+    },
+    bathrooms: {
+      type: Number
+    },
+    amenities: {
+      type: [
+        String
+      ]
+    },
+    price: {
+      type: Number
+    },
+    security_deposit: {
+      type: Number
+    },
+    cleaning_fee: {
+      type: Number
+    },
+    extra_people: {
+      type: Number
+    },
+    guests_included: {
+      type: Number
+    },
+    images: {
+      type: [
+          {
+              type: Schema.Types.ObjectId,
+              ref: 'Image'
+            }
+      ]
+    },
+    host:  {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    address:  {
+      type: Schema.Types.ObjectId,
+      ref: 'Address'
+    },
+    boooked_dates: {
+      type: [ Schema.Types.Mixed ]
+    },
+    review_scores: {
+      review_scores_accuracy: {
+        type: Number
+      },
+      review_scores_cleanliness: {
+        type: Number
+      },
+      review_scores_checkin: {
+        type: Number
+      },
+      review_scores_communication: {
+        type: Number
+      },
+      review_scores_location: {
+        type: Number
+      },
+      review_scores_value: {
+        type: Number
+      },
+      review_scores_rating: {
+        type: Number
+      }
+    },
+    reviews: {
+      type: [
+          {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: 'Review'
+            }
+      ]
     }
-  },
-  amenities: {
-    type: [String],
-    required: true
-  },
-  images: {
-    type: [String],
-    required: true
-  },
-  price: {
-    amount: {
-      type: Number,
-      required: true
-    },
-    currency: {
-      type: String,
-      required: true
-    }
-  },
-  rating: {
-    type: Number,
-    default: 0
-  },
-  bookings: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Booking'
-    }
-  ],
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  createdDate: {
-    type: Date,
-    default: Date.now
   }
-});
+
+);
 
 const Property = mongoose.model('Property', propertySchema);
 

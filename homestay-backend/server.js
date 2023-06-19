@@ -2,9 +2,10 @@ import express from 'express';
 import dotenv from 'dotenv'
 import {connectDB} from './util/db.js';
 import cors from 'cors'
-import userRouter from './routers/user.router.js';
+import userRouter from './routes/user.route.js';
 import { genErrHand, noRoute } from './middleware/err.handler.js';
 import cookieParser from 'cookie-parser';
+import { propRouter } from './routes/property.route.js';
 
 const app = express()
 dotenv.config()
@@ -23,6 +24,7 @@ app.use(cors({
 // app.use(cors())
 
 app.use("/users", userRouter)
+app.use("/property", propRouter)
 
 app.use(noRoute)
 app.use(genErrHand)
