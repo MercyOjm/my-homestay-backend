@@ -98,4 +98,5 @@ function uploadProfileImage(req, res, next) {
   }
 }
 
+
 export default { getProfile, updateProfile, uploadProfileImage };
