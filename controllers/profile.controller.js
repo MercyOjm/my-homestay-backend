@@ -1,15 +1,33 @@
-import Address from"../models/address.model.js";
-import Image from"../models/images.model.js";
-import User from"../models/user.model.js";
 
-function getProfile(req, res) {
+import Property from '../models/property.model.js';
+import Address from '../models/address.model.js';
+import Image from '../models/images.model.js';
+import User from '../models/user.model.js';
+
+export async function createProperty(req, res, next) {
+  try {
+    const propertyData = req.body;
+
+    // Create a new property object using the Property model
+    const property = new Property(propertyData);
+
+    // Save the property to the database
+    await property.save();
+
+    res.status(201).json({ message: 'Property created successfully' });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export function getProfile(req, res) {
   let profile = {};
   User.get(req.params.userid).then((user) => {
     return res.json(user);
   });
 }
 
-function updateProfile(req, res, next) {
+export function updateProfile(req, res, next) {
   let savedUser = User.get(req.params.userid);
 
   Address.update(req.body.address, req.body.address._id)
@@ -38,11 +56,11 @@ function updateProfile(req, res, next) {
     .catch((e) => next(e));
 }
 
-function uploadProfileImage(req, res, next) {
+export function uploadProfileImage(req, res, next) {
   if (req.files) {
     let profilePic = req.files.profileImage.data;
 
-    const base64Data = profilePic.toString("base64");
+    const base64Data = profilePic.toString('base64');
     let imageSaved = {};
     return new Image({
       picture_url: base64Data,
@@ -61,4 +79,9 @@ function uploadProfileImage(req, res, next) {
   }
 }
 
-export default  { getProfile, updateProfile, uploadProfileImage };
+export default {
+  createProperty,
+  getProfile,
+  updateProfile,
+  uploadProfileImage,
+};
