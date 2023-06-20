@@ -85,9 +85,9 @@ const propertySchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'Address'
     },
-    boooked_dates: {
-      type: [ Schema.Types.Mixed ]
-    },
+    boooked_dates: [{
+      type: Date
+    }],
     review_scores: {
       review_scores_accuracy: {
         type: Number
