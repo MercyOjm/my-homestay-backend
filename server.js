@@ -1,3 +1,4 @@
+/* eslint-disable import/imports-first */
 import mongoose from 'mongoose';
 
 import express from 'express';
@@ -13,10 +14,8 @@ import expressValidation from 'express-validation';
 import routes from './routes/index.route.js';
 import config from './config/config.js';
 import APIError from './helpers/APIError.js';
+// eslint-disable-next-line import/imports-first
 import fileUpload from 'express-fileupload';
-
-
-
 
 // make bluebird default Promise
 import Promise from 'bluebird'; // eslint-disable-line no-global-assign
@@ -32,8 +31,9 @@ mongoose.Promise = Promise;
 const mongoUri = config.mongo.host;
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true
 });
+
 mongoose.connection.on('error', () => {
   throw new Error(`unable to connect to database: ${mongoUri}`);
 });
@@ -78,8 +78,6 @@ app.use((req, res, next) => {
   return next(err);
 });
 
-
-
 // error handler, send stacktrace only during development
 app.use((err, req, res, next) => // eslint-disable-line no-unused-vars
   res.status(err.status).json({
@@ -89,7 +87,7 @@ app.use((err, req, res, next) => // eslint-disable-line no-unused-vars
 );
 
 
-  app.listen(config.port, () => {
+app.listen(config.port, () => {
     console.info(`server started on port ${config.port} (${config.env})`); // eslint-disable-line no-console
   });
 

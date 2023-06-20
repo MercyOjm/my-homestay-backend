@@ -1,7 +1,8 @@
 import Property from '../models/property.model.js';
- async function createProperty(req, res, next) {
+  const createProperty = async (req, res, next) => {
+    const propertyData = req.body;
     try {
-      const propertyData = req.body;
+   
   
       // Create a new property object using the Property model
       const property = new Property(propertyData);
@@ -9,10 +10,46 @@ import Property from '../models/property.model.js';
       // Save the property to the database
       await property.save();
   
-      res.status(201).json({ message: 'Property created successfully' });
+      res.status(201).json({ message: 'Property created successfully', property });
     } catch (error) {
       next(error);
     }
   }
   
-  export default {createProperty}
+
+
+   const getPropertyDetail = async (req, res, next) => {
+    const propertyId = req.params.id
+    try {
+      const property = await Property.findById(propertyId)
+        .populate('images', '-_id') 
+        .populate('host', 'email')
+        .populate('address', 'street city') 
+        .populate('reviews', '-_id') 
+        .select('-booked_dates'); 
+  
+      if (!property) {
+        return res.status(404).json({ error: 'Property not found' });
+      }
+  
+      res.status(200).json(property);
+    } catch (error) {
+      next(error)
+    }
+  };
+  
+   const deleteProperty = async (req, res, next) => {
+    const propertyId = req.params.id
+    try {
+      const deletedProp = await Property.findByIdAndDelete(propertyId)
+        
+      if (!deletedProp) {
+        return res.status(404).json({ error: 'Property not found' });
+      }
+  
+      res.status(200).json({message: 'Property deleted.', deletedProp});
+    } catch (error) {
+      next(error)
+    }
+  };
+  export default {createProperty, deleteProperty, getPropertyDetail}
