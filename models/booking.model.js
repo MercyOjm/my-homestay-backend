@@ -61,9 +61,7 @@ const bookingSchema = new mongoose.Schema({
     type: String,
   },
   payment: {
-    type: {
-      type: String,
-    },
+    type: String,
     payment_card_parameters: {
       card_type: {
         type: String,
@@ -83,50 +81,25 @@ const bookingSchema = new mongoose.Schema({
       booking_date:{
         type: String
       },
-      payment: {
-        type: {
+      billing_address: {
+        street: {
           type: String
         },
-        payment_card_parameters: {
-          card_type: {
-            type: String
-          },
-          card_number: {
-            type: String
-          },
-          cardholder_name: {
-            type: String
-          },
-          expiration_month: {
-            type: Date
-          },
-          expiration_year: {
-            type: Date
-          },
-          cvc: {
-            type: String
-          }
+        city: {
+          type: String
         },
-        billing_address: {
-          street: {
-            type: String
-          },
-          city: {
-            type: String
-          },
-          province: {
-            type: String
-          },
-          postal_code: {
-            type: Date
-          },
-          country: {
-            type: String
-          }
+        province: {
+          type: String
+        },
+        postal_code: {
+          type: Date
+        },
+        country: {
+          type: String
         }
       }
     }
-  
+  }
 );
 
 export default mongoose.model("Booking", bookingSchema);
