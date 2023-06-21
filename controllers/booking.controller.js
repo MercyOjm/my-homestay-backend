@@ -1,27 +1,71 @@
 import Booking from  '../models/booking.model.js';
+import Property from '../models/property.model.js';
 
-/* ----------------------------- Create Booking ----------------------------- */
+/* -------------------------------------------------------------------------- */
+/*                               Create booking                               */
+/* -------------------------------------------------------------------------- */
 
-export const createBooking = async(req, res, next) => {
-    const {user, property, checkIn, checkOut, guests, totalAmount, payment} = req.body;
+export const createBooking = async (req, res, next) => {
+  try {
+   
+    const {
+      propertyId,
+      start_date,
+      end_date,
+      customer,
+      traveler,
+      room_rate,
+      payment
+    } = req.body;
 
-    try {
-        const booking = await Booking.create({
-            user,
-            property,
-            checkIn,
-            checkOut,
-            guests,
-            totalAmount,
-            payment
-        })
+    const property = await Property.findById(propertyId);
+    if (!property) {
+      return res.status(404).json({ error: 'Property not found' });
+    }
+    const booking = new Booking({
+      property:propertyId,
+      start_date,
+      end_date,
+      customer,
+      traveler,
+      room_rate,
+      status: 'pending',
+      payment
+    });
 
-        res.status(201).json({booking})
-    } catch (error) {
-        next(error)
+    await booking.save();
+
+    return res.status(201).json({ message: 'Booking created successfully', booking });
+  } catch (error) {
+   
+    next(error)
+  }
+};
+
+/* -------------------------------------------------------------------------- */
+/*               Controller function to accept a booking request              */
+/* -------------------------------------------------------------------------- */
+export const acceptBooking = async (req, res, next) => {
+  try {
+    const { bookingId } = req.params;
+
+    
+    const booking = await Booking.findById(bookingId);
+
+    if (!booking) {
+      return res.status(404).json({ error: 'Booking not found.' });
     }
 
-}
+    // Update the booking status to 'accepted'
+    booking.status = 'accepted';
+    await booking.save();
+
+  
+    return res.status(200).json({ message: 'Booking accepted successfully', booking });
+  } catch (error) {
+    next(error)
+  }
+};
 
 /* -------------------------------------------------------------------------- */
 /*                            Get booking for users                           */

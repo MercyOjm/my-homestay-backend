@@ -1,5 +1,6 @@
 import Property from '../models/property.model.js';
-  const createProperty = async (req, res, next) => {
+  
+export const createProperty = async (req, res, next) => {
     const propertyData = req.body;
     try {
    
@@ -18,15 +19,15 @@ import Property from '../models/property.model.js';
   
 
 
-   const getPropertyDetail = async (req, res, next) => {
+export const getPropertyDetail = async (req, res, next) => {
     const propertyId = req.params.id
     try {
       const property = await Property.findById(propertyId)
-        .populate('images', '-_id') 
-        .populate('host', 'email')
-        .populate('address', 'street city') 
-        .populate('reviews', '-_id') 
-        .select('-booked_dates'); 
+        // .populate('images', '-_id') 
+        // .populate('host', 'email')
+        // .populate('address', 'street city') 
+        // .populate('reviews', '-_id') 
+        // .select('-booked_dates'); 
   
       if (!property) {
         return res.status(404).json({ error: 'Property not found' });
@@ -38,7 +39,7 @@ import Property from '../models/property.model.js';
     }
   };
   
-   const deleteProperty = async (req, res, next) => {
+export const deleteProperty = async (req, res, next) => {
     const propertyId = req.params.id
     try {
       const deletedProp = await Property.findByIdAndDelete(propertyId)
@@ -52,4 +53,3 @@ import Property from '../models/property.model.js';
       next(error)
     }
   };
-  export default {createProperty, deleteProperty, getPropertyDetail}

@@ -1,17 +1,12 @@
-/* eslint-disable import/imports-first */
 import mongoose from 'mongoose';
-
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import compress from 'compression';
 import methodOverride from 'method-override';
-
 import httpStatus from 'http-status';
 import expressValidation from 'express-validation';
-
-
-import routes from './routes/index.route.js';
+import router from './routes/index.route.js';
 import config from './config/config.js';
 import APIError from './helpers/APIError.js';
 // eslint-disable-next-line import/imports-first
@@ -20,6 +15,7 @@ import fileUpload from 'express-fileupload';
 // make bluebird default Promise
 import Promise from 'bluebird'; // eslint-disable-line no-global-assign
 import cors from 'cors';
+// import  routes from './routes/user.route.js';
 
 const app = express();
 
@@ -43,12 +39,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(compress());
 app.use(methodOverride());
-app.use(fileUpload())
+app.use(fileUpload());
 app.use(cors({
-  origin:"http://localhost:5173",
-  optionsSuccessStatus:200,
+  origin: 'http://localhost:5173',
+  optionsSuccessStatus: 200,
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"]
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
 })
 );
 
@@ -56,7 +52,7 @@ app.use(cors({
 
 
 // mount all routes on /api path
-app.use('/api', routes);
+app.use('/api', router);
 
 // if error is not an instanceOf APIError, convert it.
 app.use((err, req, res, next) => {
@@ -89,7 +85,7 @@ app.use((err, req, res, next) => // eslint-disable-line no-unused-vars
 
 app.listen(config.port, () => {
     console.info(`server started on port ${config.port} (${config.env})`); // eslint-disable-line no-console
-  });
+});
 
 
 export default app;
