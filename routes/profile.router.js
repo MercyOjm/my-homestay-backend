@@ -10,6 +10,6 @@ router.route('/:userid')
   .put(profileController.updateProfile);
 
 router.route('/:userid/upload')
-.post(profileController.uploadProfileImage)
+.post(profileController.uploadProfileImage);
 
 export default router;

@@ -9,11 +9,12 @@ import methodOverride from 'method-override';
 import httpStatus from 'http-status';
 import expressValidation from 'express-validation';
 
-
+// import dotenv from 'dotenv';
 import routes from './routes/index.route.js';
 import config from './config/config.js';
 import APIError from './helpers/APIError.js';
 import fileUpload from 'express-fileupload';
+// import { connectToDB } from './util/db.js';
 
 
 
@@ -37,6 +38,8 @@ mongoose.connect(mongoUri, {
 mongoose.connection.on('error', () => {
   throw new Error(`unable to connect to database: ${mongoUri}`);
 });
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

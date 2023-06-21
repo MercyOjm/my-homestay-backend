@@ -1,7 +1,15 @@
+/* eslint-disable import/no-named-as-default-member */
 import express from 'express';
-
-import  propertyController from '../controllers/property.controller.js';
+// eslint-disable-next-line import/no-named-as-default
+import propertyController from '../controllers/property.controller.js';
 
 const router = express.Router(); // eslint-disable-line new-cap
-router.post('/', propertyController.createProperty);
+
+router.route('/')
+    .post(propertyController.createProperty);
+
+router.route('/:pid')
+    .get(propertyController.getPropertyByBookingHistory)
+    .put(propertyController.updateProperty);
+
 export default router;

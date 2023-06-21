@@ -11,11 +11,11 @@ const bookingSchema = new mongoose.Schema({
       end_date: {
         type: Date
       },
-      customer:  {
+      customer:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
       },
-      traveler: {
+      guest_name: {
         first_name: {
           type: String
         },
@@ -44,12 +44,11 @@ const bookingSchema = new mongoose.Schema({
         currency: {
           type: String
         },
-        VAT: {
-          type: Number
-        }
       },
       status: {
-        type: String
+        type: String,
+        enum: ['pending', 'confirmed', 'cancelled', 'accepted', 'rejected'],
+        default: 'pending',
       },
       payment: {
         type: {
