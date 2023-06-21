@@ -255,4 +255,3 @@ export async function getPropertyByBookingHistory(req, res, next) {
 
 
 
-
