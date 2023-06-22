@@ -53,3 +53,17 @@ export const deleteProperty = async (req, res, next) => {
       next(error)
     }
   };
+
+  export const getAllProperty = async(req, res, next) => {
+    try {
+      const properties = await Property.find()
+      if(!properties){
+        return res.status(404).json({message: 'No properties found.'})
+      }
+
+      res.status(200).json(properties)
+      
+    } catch (error) {
+      next(error)
+    }
+  }
