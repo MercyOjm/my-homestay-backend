@@ -1,5 +1,5 @@
 import {body} from 'express-validator';
-import { Property} from '../models/property.model.js';
+import Property from '../models/property.model.js';
 
 /* ----------------------- custom validation method ---------------------- */
 const duplicateProperty = async (name) => {

@@ -1,4 +1,3 @@
-
 import mongoose from 'mongoose';
 
 const propertySchema = new mongoose.Schema({
@@ -51,5 +50,7 @@ const propertySchema = new mongoose.Schema({
   },
   reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
 });
+
+
 
 export default mongoose.model('Property', propertySchema);

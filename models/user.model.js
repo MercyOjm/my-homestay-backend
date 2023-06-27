@@ -220,7 +220,7 @@ UserSchema.statics = {
 
 };
 
-/**
- * @typedef User
- */
+// /**
+//  * @typedef User
+//  */
 export default  mongoose.model('User', UserSchema);
