@@ -21,11 +21,7 @@ export const getPropertyDetail = async (req, res, next) => {
   const propertyId = req.params.id;
   try {
     const property = await Property.findById(propertyId);
-    // .populate('images', '-_id')
-    // .populate('host', 'email')
-    // .populate('address', 'street city')
-    // .populate('reviews', '-_id')
-    // .select('-booked_dates');
+   
 
     if (!property) {
       return res.status(404).json({ error: "Property not found" });
