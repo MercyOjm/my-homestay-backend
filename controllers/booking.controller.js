@@ -1,15 +1,16 @@
 import Booking from  '../models/booking.model.js';
 import Property from '../models/property.model.js';
+import User from '../models/user.model.js'
+
 
 /* -------------------------------------------------------------------------- */
 /*                               Create booking                               */
 /* -------------------------------------------------------------------------- */
 
-export const createBooking = async (req, res, next) => {
-  try {
-   
+export const createBooking = async( req, res, next ) => {
+  try {   
     const {
-      propertyId,
+      property,
       start_date,
       end_date,
       customer,
@@ -18,12 +19,12 @@ export const createBooking = async (req, res, next) => {
       payment
     } = req.body;
 
-    const property = await Property.findById(propertyId);
-    if (!property) {
+    const propertyBook = await Property.findById(property);
+    if (!propertyBook) {
       return res.status(404).json({ error: 'Property not found' });
     }
     const booking = new Booking({
-      property:propertyId,
+      propertyBook:property,
       start_date,
       end_date,
       customer,
@@ -72,12 +73,12 @@ export const acceptBooking = async (req, res, next) => {
 /* -------------------------------------------------------------------------- */
 
 export const getUserBookings = async (req, res, next)=>{
-    const {userId} = req.params
+    const {userID} = req.params
 
     try {
-      const bookings = await Booking.find({user: userId}).populate('property');
+      const bookings = await Booking.find({customer: userID}).populate('property');
       
-      res.status(200).json({bookings})
+      res.status(200).json(bookings)
     } catch (error) {
         next(error)
     }
@@ -91,12 +92,12 @@ export const getBookingById = async(req, res, next) => {
     const {bookingId} = req.params;
 
     try {
-        const bookingById = await Booking.findById(bookingId).populate('user').populate('property');
+        const bookingById = await Booking.findById(bookingId).populate('customer').populate('property');
         if(!bookingById){
             return res.status(404).json({message: 'Booking not found!'})
         }
 
-        res.status(200).json({bookingById})
+        res.status(200).json(bookingById)
     } catch (error) {
         next(error)
     }

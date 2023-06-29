@@ -1,5 +1,8 @@
+/* eslint-disable no-console */
 import mongoose from 'mongoose';
 import express from 'express';
+import Promise from 'bluebird'; // eslint-disable-line no-global-assign
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import compress from 'compression';
@@ -13,8 +16,7 @@ import APIError from './helpers/APIError.js';
 import fileUpload from 'express-fileupload';
 
 // make bluebird default Promise
-import Promise from 'bluebird'; // eslint-disable-line no-global-assign
-import cors from 'cors';
+
 // import  routes from './routes/user.route.js';
 
 const app = express();
@@ -84,7 +86,8 @@ app.use((err, req, res, next) => // eslint-disable-line no-unused-vars
 
 
 app.listen(config.port, () => {
-    console.info(`server started on port ${config.port} (${config.env})`); // eslint-disable-line no-console
+  console.info(`Server started on port ${config.port} (${config.env})`); // eslint-disable-line no-console
+  console.log('Connection to DB successful!');
 });
 
 
