@@ -1,5 +1,8 @@
 import Property from "../models/property.model.js";
 
+/* -------------------------------------------------------------------------- */
+/*                               Create Property                              */
+/* -------------------------------------------------------------------------- */
 export const createProperty = async (req, res, next) => {
   const propertyData = req.body;
   try {
@@ -17,6 +20,9 @@ export const createProperty = async (req, res, next) => {
   }
 };
 
+/* -------------------------------------------------------------------------- */
+/*                             Get Property by ID                             */
+/* -------------------------------------------------------------------------- */
 export const getPropertyDetail = async (req, res, next) => {
   const propertyId = req.params.id;
   try {
@@ -33,6 +39,9 @@ export const getPropertyDetail = async (req, res, next) => {
   }
 };
 
+/* -------------------------------------------------------------------------- */
+/*                               Delete Property                              */
+/* -------------------------------------------------------------------------- */
 export const deleteProperty = async (req, res, next) => {
   const propertyId = req.params.id;
   try {
@@ -47,7 +56,9 @@ export const deleteProperty = async (req, res, next) => {
     next(error);
   }
 };
-
+/* -------------------------------------------------------------------------- */
+/*                             Get All Properties                             */
+/* -------------------------------------------------------------------------- */
 export const getAllProperty = async (req, res, next) => {
   try {
     const properties = await Property.find();
