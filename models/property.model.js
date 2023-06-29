@@ -5,9 +5,22 @@ const propertySchema = new mongoose.Schema({
   name: { type: String, required: true },
   address: { type: String, required: true },
   price: { type: Number, required: true },
+  minPrice: {
+    type: Number
+  },
+  maxPrice: {
+    type: Number
+  },
   area: { type: Number },
   rooms: { type: Number },
   beds: { type: Number },
+  minBeds: {
+    type: Number
+
+  },
+  maxBeds: {
+    type: Number
+  },
   suitablePeopleCount: { type: Number },
   photos: [{ type: String }],
   facilities: {
@@ -18,6 +31,12 @@ const propertySchema = new mongoose.Schema({
     kitchenEquipment: { type: Boolean },
   },
   bathrooms: { type: Number },
+  minBathrooms: {
+    type: Number
+  },
+  maxBathrooms: {
+    type: Number
+  },
   nearbyPlaces: { type: String },
   listing_url: { type: String },
   summary: { type: String },
@@ -30,6 +49,12 @@ const propertySchema = new mongoose.Schema({
   cancellation_policy: { type: String },
   accommodates: { type: Number },
   bedrooms: { type: Number },
+  minBedrooms: {
+    type: Number
+  },
+  maxBedrooms: {
+    type: Number
+  },
   number_of_reviews: { type: Number },
   amenities: [{ type: String }],
   security_deposit: { type: Number },

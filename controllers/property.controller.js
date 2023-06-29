@@ -94,7 +94,7 @@ export const searchProperties = async(req, res, next) => {
 
   //Price filter
   if(minPrice && maxPrice){
-    filters.price = {$gte:minPrice, $lte:maxPrice};
+    filters.price = {$gte:(minPrice), $lte:maxPrice};
   }else if(minPrice){
     filters.price = {$gte: minPrice};
   }else if(maxPrice){
@@ -133,6 +133,8 @@ export const searchProperties = async(req, res, next) => {
   if(amenities){
     filters.amenities = {$all: amenities.split(',')};   
   }
+
+
 
   try {
     const filteredProps = await Property.find(filters);

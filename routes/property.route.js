@@ -4,9 +4,10 @@ import { createProperty, deleteProperty, getAllProperty, getPropertyDetail, sear
 
 const propertyRoutes = express.Router(); // eslint-disable-line new-cap
 propertyRoutes.post('/', createProperty)
-      .get('/', getAllProperty)
+      .get('/search', searchProperties)
+      .get('/', getAllProperty)    
       .get('/:id', getPropertyDetail)
-      .delete('/:id', deleteProperty)
-      .get('/search', searchProperties);
+      .delete('/:id', deleteProperty);
+      
 
 export default propertyRoutes;

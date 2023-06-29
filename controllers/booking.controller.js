@@ -1,6 +1,6 @@
 import Booking from  '../models/booking.model.js';
 import Property from '../models/property.model.js';
-import User from '../models/user.model.js'
+
 
 
 /* -------------------------------------------------------------------------- */
@@ -19,7 +19,7 @@ export const createBooking = async( req, res, next ) => {
       payment
     } = req.body;
 
-    const propertyBook = await Property.findById(property);
+    const propertyBook = await Property.findById(propertyId);
     if (!propertyBook) {
       return res.status(404).json({ error: 'Property not found' });
     }
