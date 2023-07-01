@@ -51,6 +51,9 @@ const bookingSchema = new mongoose.Schema({
       status: {
         type: String
       },
+      booking_date:{
+        type: String
+      },
       payment: {
         type: {
           type: String
