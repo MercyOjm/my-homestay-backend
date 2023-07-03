@@ -131,3 +131,18 @@ export const updateBookingPayment = async(req, res, next) => {
 
 
 }
+
+/* -------------------------------------------------------------------------- */
+/*                              Get Host Booking                              */
+/* -------------------------------------------------------------------------- */
+
+export const getHostBookings = async(req, res, next) => {
+  try {
+    const {profileId} = req.params;
+    const bookings = await Booking.find({customer:profileId});
+
+    res.status(200).json(bookings)
+  } catch (error) {
+    next(error)
+  }
+}

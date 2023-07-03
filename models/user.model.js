@@ -38,6 +38,15 @@ const UserSchema = new mongoose.Schema({
   response_time: {
     type: String
   },
+  host:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Property"
+  },
+  role:{
+    type: String,
+    enum: ["guest", "host"],
+    default: "guest"
+  },
   image: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Image"

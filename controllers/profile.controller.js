@@ -3,7 +3,6 @@ import Image from "../models/images.model.js";
 import User from "../models/user.model.js";
 
 function getProfile(req, res) {
-  let profile = {};
   User.get(req.params.userid).then((user) => {
     return res.json(user);
   });

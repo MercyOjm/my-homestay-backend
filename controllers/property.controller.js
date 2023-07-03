@@ -1,4 +1,7 @@
 import Property from "../models/property.model.js";
+import APIError from "../helpers/APIError.js";
+import httpStatus from 'http-status'
+
 
 /* -------------------------------------------------------------------------- */
 /*                               Create Property                              */
@@ -139,6 +142,39 @@ export const searchProperties = async(req, res, next) => {
   try {
     const filteredProps = await Property.find(filters);
     res.status(200).json({ filteredProps })
+  } catch (error) {
+    next(error)
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              Property Preview                              */
+/* -------------------------------------------------------------------------- */
+
+export const getPropertyPreview = async(req, res, next) => {
+  
+  try {
+    const { propertyId } = req.params
+    const property = await Property.findById(propertyId)
+    .select('name address price photos summary amenities')
+    .populate('host', 'email')
+    .exec();
+
+    if(!property){
+      throw new APIError('Property not found.', httpStatus.NOT_FOUND)    
+    }   
+    const { name, address, price, photos, summary, amenities, host} = property;
+
+    const previewData = {
+      name,
+      address,
+      price,
+      photos,
+      summary,
+      amenities,
+      host: host.email
+    }
+    res.json(previewData)
   } catch (error) {
     next(error)
   }
