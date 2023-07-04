@@ -31,6 +31,11 @@ const UserSchema = new mongoose.Schema({
     enum: ['admin', 'guest', 'host'],
     default: 'guest'
   },
+  role: {
+    type: String,
+    enum: ['admin', 'guest', 'host'],
+    default: 'guest'
+  },
   dob: {
     type: Date,
   },
