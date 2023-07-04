@@ -3,11 +3,14 @@ import mongoose from 'mongoose';
 
 const propertySchema = new mongoose.Schema({
   name: { type: String, required: true },
-  address: { type: String, required: true },
+  address: { type: mongoose.Schema.Types.ObjectId, ref: 'Address' },
   price: { type: Number, required: true },
   area: { type: Number },
   rooms: { type: Number },
-  beds: { type: Number },
+  beds: [{ 
+    bed_type: String,
+    total_beds: Number
+   }],
   suitablePeopleCount: { type: Number },
   photos: [{ type: String }],
   facilities: {
@@ -38,7 +41,7 @@ const propertySchema = new mongoose.Schema({
   guests_included: { type: Number },
   images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
   host: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  address_prop: { type: mongoose.Schema.Types.ObjectId, ref: 'Address' },
+  
   booked_dates: [{ type: Date }],
   review_scores: {
     review_scores_accuracy: { type: Number },
