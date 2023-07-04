@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 
 const bookingSchema = new mongoose.Schema({
-
-  propertyB: {
+  property: {
 
     type: mongoose.Schema.Types.ObjectId,
     ref: "Property",
@@ -100,6 +99,7 @@ const bookingSchema = new mongoose.Schema({
       }
     }
   }
+}
 );
 
 export default mongoose.model("Booking", bookingSchema);
