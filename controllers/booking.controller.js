@@ -1,6 +1,8 @@
 import Booking from  '../models/booking.model.js';
 import Property from '../models/property.model.js';
+
 import User from '../models/user.model.js'
+
 
 
 
@@ -19,6 +21,7 @@ export const createBooking = async( req, res, next ) => {
       room_rate,
       payment
     } = req.body;
+
 
     const propertyB = await Property.findById(property);
     if (!propertyB) {
@@ -40,7 +43,8 @@ export const createBooking = async( req, res, next ) => {
     const user = await User.findById(customer);
     if(!user){
       return res.status(404).json({error: 'User not found.'})
-    }
+
+
 
     if(user.is_host){
       
@@ -56,6 +60,7 @@ export const createBooking = async( req, res, next ) => {
     next(error)
   }
 };
+
 
 /* -------------------------------------------------------------------------- */
 /*               Controller function to accept a booking request              */

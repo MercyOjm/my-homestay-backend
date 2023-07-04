@@ -37,10 +37,12 @@ const propertySchema = new mongoose.Schema({
   extra_people: { type: Number },
   guests_included: { type: Number },
   images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Image' }],
+
   host: { 
     id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     email: { type: String }
   },
+
   address_prop: { type: mongoose.Schema.Types.ObjectId, ref: 'Address' },
   booked_dates: [{ type: Date }],
   review_scores: {
