@@ -9,11 +9,19 @@ import httpStatus from 'http-status'
 export const createProperty = async (req, res, next) => {
   const propertyData = req.body;
   try {
+    const { userId } = req.params
     // Create a new property object using the Property model
     const property = new Property(propertyData);
 
     // Save the property to the database
     await property.save();
+
+    const user = await User.findById(userId);
+    if(user.properties.length > 0){
+      user.is_host = true;
+      user.role === 'host'
+      await user.save()
+    }
 
     res
       .status(201)

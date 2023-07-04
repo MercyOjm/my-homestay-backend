@@ -47,6 +47,10 @@ const UserSchema = new mongoose.Schema({
     enum: ["guest", "host"],
     default: "guest"
   },
+  is_host:{
+    type: Boolean,
+    default: false
+  },
   image: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Image"
