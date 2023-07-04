@@ -11,7 +11,7 @@ import httpStatus from 'http-status';
 import expressValidation from 'express-validation';
 
 // import dotenv from 'dotenv';
-import routes from './routes/index.route.js';
+import router from './routes/index.route.js';
 import config from './config/config.js';
 import APIError from './helpers/APIError.js';
 // eslint-disable-next-line import/imports-first
