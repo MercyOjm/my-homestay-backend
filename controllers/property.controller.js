@@ -1,6 +1,7 @@
 import Property from '../models/property.model.js';
 import Booking from '../models/booking.model.js';
 import createError from 'http-errors';
+import Review from "../models/review.model.js";
 import User from "../models/user.model.js";
 
 export async function createProperty(req, res, next) {
@@ -251,6 +252,7 @@ export async function getPropertyByBookingHistory(req, res, next) {
     next(error);
   }
 }
+
 
 
 
