@@ -60,7 +60,7 @@ const bookingSchema = new mongoose.Schema({
     type: String,
   },
   payment: {
-    type: String,
+ 
     payment_card_parameters: {
       card_type: {
         type: String,
