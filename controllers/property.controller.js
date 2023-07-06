@@ -190,7 +190,7 @@ export const getPropertyPreview = async(req, res, next) => {
     }
     res.json(previewData)
   } catch (error) {
-    next(error)
+    next(error);
   }
 }
 
