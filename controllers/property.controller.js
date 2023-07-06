@@ -28,7 +28,7 @@ export const createProperty = async (req, res, next) => {
 export const getPropertyDetail = async (req, res, next) => {
   const propertyId = req.params.id;
   try {
-    const property = await Property.findById(propertyId).populate("reviews").populate("address");
+    const property = await Property.findById(propertyId).populate("reviews").populate("address").populate("images");
 
     const reviewPromises = property.reviews.map(async (review) => {
       const user = await User.findById(review.reviewer)
