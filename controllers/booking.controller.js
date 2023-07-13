@@ -115,10 +115,9 @@ export const getGuestBookings = async (req, res, next) => {
     );
    const bookings=await Promise.all(guest.guest_booking.map(booking=>
       booking.populate('property')));
-    
     const bookingsWithProperty = await Promise.all(bookings.map(booking=>booking.property.populate('images')));
-
-    res.status(200).json(bookingsWithProperty);
+    await Promise.all(bookings.map(booking=>booking.populate('host')));
+    res.status(200).json(bookings);
   } catch (error) {
     console.error(error)
     next(error);
@@ -134,8 +133,9 @@ export const getPropertyBookings = async (req, res, next) => {
     );
     const bookings=await Promise.all(host.property_bookings.map(booking=>
       booking.populate('property')));
-    
+   
     const bookingsWithProperty = await Promise.all(bookings.map(booking=>booking.property.populate('images')));
+    await Promise.all(bookings.map(booking=>booking.populate('guest')));
 
     res.status(200).json(bookings);
   } catch (error) {
