@@ -48,7 +48,7 @@ app.use(compress());
 app.use(methodOverride());
 app.use(fileUpload());
 app.use(cors({
-  origin: 'https://bookme-lhvh.onrender.com/',
+  origin: 'https://my-homestay-frontend.vercel.app/',
   optionsSuccessStatus: 200,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE']
